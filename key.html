@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vorahub · Premium Access</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet" />
     <style>
         * {
             margin: 0;
@@ -37,8 +37,8 @@
             inset: 0;
             z-index: -1;
             background:
-                radial-gradient(circle at 30% 20%, rgba(37, 99, 235, 0.06), transparent 55%),
-                radial-gradient(circle at 80% 80%, rgba(20, 40, 90, 0.04), transparent 60%),
+                radial-gradient(circle at 30% 20%, rgba(37, 99, 235, 0.08), transparent 55%),
+                radial-gradient(circle at 80% 80%, rgba(20, 40, 90, 0.05), transparent 60%),
                 #070b17;
         }
 
@@ -46,11 +46,11 @@
             max-width: 640px;
             width: 100%;
             background: rgba(255, 255, 255, 0.015);
-            border: 1px solid rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(37, 99, 235, 0.08);
             border-radius: 32px;
             padding: 2.5rem 2rem 2rem;
             backdrop-filter: blur(12px);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(37, 99, 235, 0.04);
         }
 
         /* Brand */
@@ -69,6 +69,7 @@
             stroke-width: 6;
             stroke-linecap: round;
             stroke-linejoin: round;
+            filter: drop-shadow(0 0 8px rgba(37, 99, 235, 0.2));
         }
         .brand span {
             font-weight: 700;
@@ -95,17 +96,15 @@
         }
 
         .divider {
-            width: 40px;
-            height: 2px;
-            background: #2563eb;
+            width: 48px;
+            height: 3px;
+            background: linear-gradient(90deg, #2563eb, #60a5fa);
             margin: 0.6rem auto 1.5rem;
-            border-radius: 2px;
-            opacity: 0.6;
+            border-radius: 3px;
+            box-shadow: 0 0 16px rgba(37, 99, 235, 0.25);
         }
 
-        /* ── ELDORADO-STYLE MARKETPLACE ── */
-
-        /* Premium section — front and center */
+        /* ── MARKETPLACE (Premium first) ── */
         .premium-section {
             margin-bottom: 1.2rem;
         }
@@ -122,20 +121,21 @@
             background: rgba(37, 99, 235, 0.12);
             padding: 0.1rem 0.8rem;
             border-radius: 40px;
-            border: 1px solid rgba(37, 99, 235, 0.08);
+            border: 1px solid rgba(37, 99, 235, 0.12);
+            box-shadow: 0 0 20px rgba(37, 99, 235, 0.04);
         }
 
         .marketplace-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-            gap: 0.7rem;
+            gap: 0.8rem;
             margin-bottom: 0.5rem;
         }
         .marketplace-item {
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.015);
+            border-radius: 18px;
             padding: 1rem 0.6rem 0.8rem;
-            border: 1px solid rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(37, 99, 235, 0.06);
             text-align: center;
             transition: border-color 0.25s, background 0.25s, transform 0.2s, box-shadow 0.3s;
             position: relative;
@@ -144,10 +144,10 @@
             align-items: center;
         }
         .marketplace-item:hover {
-            border-color: rgba(37, 99, 235, 0.2);
+            border-color: rgba(37, 99, 235, 0.25);
             background: rgba(37, 99, 235, 0.04);
             transform: translateY(-3px);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+            box-shadow: 0 8px 28px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(37, 99, 235, 0.06);
         }
         .marketplace-item .badge {
             font-size: 0.5rem;
@@ -160,10 +160,11 @@
             border-radius: 40px;
             display: inline-block;
             margin-bottom: 0.2rem;
+            box-shadow: 0 0 12px rgba(37, 99, 235, 0.2);
         }
         .marketplace-item .badge.best {
             background: #1d4ed8;
-            box-shadow: 0 0 20px rgba(37, 99, 235, 0.15);
+            box-shadow: 0 0 24px rgba(37, 99, 235, 0.3);
         }
         .marketplace-item .item-name {
             font-weight: 600;
@@ -171,11 +172,12 @@
             color: #dce6ff;
         }
         .marketplace-item .item-price {
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             font-weight: 700;
             color: #60a5fa;
             line-height: 1.2;
             margin: 0.1rem 0 0.2rem;
+            text-shadow: 0 0 20px rgba(37, 99, 235, 0.1);
         }
         .marketplace-item .item-price small {
             font-size: 0.7rem;
@@ -192,7 +194,7 @@
             font-weight: 600;
             font-size: 0.8rem;
             cursor: pointer;
-            transition: background 0.2s, transform 0.15s;
+            transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
             font-family: "DM Sans", system-ui, sans-serif;
             letter-spacing: 0.02em;
             width: 100%;
@@ -200,26 +202,26 @@
         }
         .marketplace-item .buy-btn:hover {
             background: #3b82f6;
-            transform: scale(1.03);
+            transform: scale(1.04);
+            box-shadow: 0 0 24px rgba(37, 99, 235, 0.25);
         }
         .marketplace-item .buy-btn:active {
             transform: scale(0.97);
         }
 
-        /* Featured seller badge */
         .marketplace-item.featured {
-            border-color: rgba(37, 99, 235, 0.15);
+            border-color: rgba(37, 99, 235, 0.12);
             background: rgba(37, 99, 235, 0.04);
         }
         .marketplace-item.featured .item-price {
             color: #93bbfc;
         }
 
-        /* Free section — secondary */
+        /* ── FREE SECTION (secondary) ── */
         .free-section {
             margin-top: 1.2rem;
             padding-top: 1.2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.03);
+            border-top: 1px solid rgba(37, 99, 235, 0.06);
             text-align: center;
         }
         .free-section .free-label {
@@ -233,27 +235,28 @@
         .free-btn {
             padding: 0.7rem 2rem;
             border-radius: 40px;
-            border: 1px solid rgba(34, 197, 94, 0.15);
-            background: rgba(34, 197, 94, 0.03);
-            color: #86efac;
+            border: 1px solid rgba(37, 99, 235, 0.15);
+            background: rgba(37, 99, 235, 0.03);
+            color: #8ab4f8;
             font-size: 0.9rem;
             font-weight: 500;
             font-family: "DM Sans", system-ui, sans-serif;
             cursor: pointer;
-            transition: background 0.25s, border-color 0.25s, transform 0.15s;
+            transition: background 0.25s, border-color 0.25s, transform 0.15s, box-shadow 0.2s;
         }
         .free-btn:hover {
-            background: rgba(34, 197, 94, 0.06);
-            border-color: rgba(34, 197, 94, 0.25);
+            background: rgba(37, 99, 235, 0.08);
+            border-color: rgba(37, 99, 235, 0.25);
             transform: translateY(-1px);
+            box-shadow: 0 0 20px rgba(37, 99, 235, 0.06);
         }
 
         .free-result {
             margin-top: 0.8rem;
             padding: 0.8rem 1rem;
-            border-radius: 12px;
-            background: rgba(34, 197, 94, 0.04);
-            border: 1px solid rgba(34, 197, 94, 0.08);
+            border-radius: 14px;
+            background: rgba(37, 99, 235, 0.04);
+            border: 1px solid rgba(37, 99, 235, 0.08);
             display: none;
             animation: fadeUp 0.4s ease;
         }
@@ -264,13 +267,14 @@
             font-family: "DM Sans", monospace;
             font-size: 1rem;
             font-weight: 600;
-            color: #86efac;
+            color: #60a5fa;
             letter-spacing: 2px;
             background: rgba(0, 0, 0, 0.2);
             padding: 0.3rem 0.8rem;
             border-radius: 6px;
             display: inline-block;
             margin: 0.2rem 0;
+            border: 1px solid rgba(37, 99, 235, 0.06);
         }
         .free-result .note {
             font-size: 0.75rem;
@@ -298,7 +302,7 @@
             inset: 0;
             z-index: 1000;
             background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(12px);
+            backdrop-filter: blur(14px);
             align-items: center;
             justify-content: center;
             padding: 1.5rem;
@@ -324,8 +328,8 @@
             background: #0d1424;
             border-radius: 28px;
             padding: 2.2rem 2rem 1.8rem;
-            border: 1px solid rgba(255, 255, 255, 0.04);
-            box-shadow: 0 32px 80px rgba(0, 0, 0, 0.7);
+            border: 1px solid rgba(37, 99, 235, 0.1);
+            box-shadow: 0 32px 80px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(37, 99, 235, 0.04);
             max-height: 90vh;
             overflow-y: auto;
         }
@@ -355,6 +359,7 @@
             padding: 0.15rem 0.8rem;
             border-radius: 40px;
             margin-bottom: 0.3rem;
+            border: 1px solid rgba(37, 99, 235, 0.06);
         }
         .modal-header h3 {
             font-size: 1.4rem;
@@ -374,8 +379,8 @@
             margin: 1.2rem 0 1.5rem;
             padding: 0.8rem 0.6rem;
             background: rgba(255, 255, 255, 0.01);
-            border-radius: 14px;
-            border: 1px solid rgba(255, 255, 255, 0.02);
+            border-radius: 16px;
+            border: 1px solid rgba(37, 99, 235, 0.04);
         }
         .modal-payment-section .label {
             font-size: 0.6rem;
@@ -399,7 +404,7 @@
             font-size: 0.7rem;
             font-weight: 500;
             color: #b2c7ef;
-            border: 1px solid rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(37, 99, 235, 0.04);
             transition: background 0.2s, border-color 0.2s;
             display: inline-flex;
             align-items: center;
@@ -411,7 +416,7 @@
         }
         .modal-payment-methods .method:hover {
             background: rgba(37, 99, 235, 0.06);
-            border-color: rgba(37, 99, 235, 0.08);
+            border-color: rgba(37, 99, 235, 0.1);
         }
 
         .modal-help {
@@ -421,7 +426,7 @@
             gap: 0.6rem;
             padding: 0.6rem 0.8rem;
             background: rgba(37, 99, 235, 0.03);
-            border-radius: 10px;
+            border-radius: 12px;
             border: 1px solid rgba(37, 99, 235, 0.04);
             margin-bottom: 1.2rem;
             font-size: 0.8rem;
@@ -436,10 +441,11 @@
             border-radius: 40px;
             background: rgba(37, 99, 235, 0.06);
             border: 1px solid rgba(37, 99, 235, 0.06);
-            transition: background 0.2s;
+            transition: background 0.2s, box-shadow 0.2s;
         }
         .modal-help a:hover {
-            background: rgba(37, 99, 235, 0.1);
+            background: rgba(37, 99, 235, 0.12);
+            box-shadow: 0 0 20px rgba(37, 99, 235, 0.06);
             text-decoration: none;
         }
 
@@ -519,7 +525,7 @@
         </div>
         <div class="divider"></div>
 
-        <!-- ─── PREMIUM MARKETPLACE (front and center) ─── -->
+        <!-- ─── PREMIUM MARKETPLACE ─── -->
         <div class="premium-section">
             <div class="section-label">
                 <span class="highlight">◆ Recommended — Premium Plans</span>
@@ -554,12 +560,12 @@
             </div>
         </div>
 
-        <!-- ─── FREE SECTION (secondary) ─── -->
+        <!-- ─── FREE SECTION ─── -->
         <div class="free-section">
             <div class="free-label">or · limited free access</div>
             <button class="free-btn" id="freeKeyBtn">Get Free Key</button>
             <div class="free-result" id="freeResult">
-                <div style="font-weight:500; color:#86efac; font-size:0.85rem;">Your free key</div>
+                <div style="font-weight:500; color:#60a5fa; font-size:0.85rem;">Your free key</div>
                 <div class="gen-key" id="generatedKey">XXXX-XXXX-XXXX</div>
                 <div class="note">Redirecting to Discord in a moment.</div>
             </div>
@@ -619,7 +625,6 @@
             const generatedKeySpan = document.getElementById('generatedKey');
             const modalPlanDisplay = document.getElementById('modalPlanDisplay');
 
-            // Generate random key
             function generateFreeKey() {
                 const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
                 let key = '';
@@ -632,7 +637,6 @@
                 return key;
             }
 
-            // Free key
             freeBtn.addEventListener('click', function() {
                 const newKey = generateFreeKey();
                 generatedKeySpan.textContent = newKey;
@@ -642,7 +646,6 @@
                 }, 3500);
             });
 
-            // Premium buy buttons – show modal
             buyBtns.forEach(btn => {
                 btn.addEventListener('click', function(e) {
                     e.stopPropagation();
@@ -663,32 +666,22 @@
             }
 
             stickBtn.addEventListener('click', closeModal);
-
-            // Click outside to close
             premiumModal.addEventListener('click', function(e) {
                 if (e.target === premiumModal) closeModal();
             });
-
-            // Escape key
             document.addEventListener('keydown', function(e) {
                 if (e.key === 'Escape' && premiumModal.classList.contains('active')) {
                     closeModal();
                 }
             });
 
-            // For now, clicking on payment methods or Discord link in modal
-            // does nothing special – just closes the modal after a moment for demo.
-            // In production, you'd redirect to a payment gateway.
-            document.querySelectorAll('.modal-payment-methods .method, .modal-help a').forEach(el => {
-                el.addEventListener('click', function(e) {
-                    if (this.classList.contains('method')) {
-                        e.preventDefault();
-                        alert('Payment method selected. This is a demo — integration coming soon.');
-                    }
-                    // Discord link works as normal.
+            // Demo: payment method clicks
+            document.querySelectorAll('.modal-payment-methods .method').forEach(el => {
+                el.addEventListener('click', function() {
+                    const name = this.textContent.trim();
+                    alert(`Payment method selected: ${name}\n\nThis is a demo. Integration coming soon.`);
                 });
             });
-
         })();
     </script>
 
