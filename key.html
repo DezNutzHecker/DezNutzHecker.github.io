@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vorahub · Key System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body, a, button, .btn, .key-input, .redeem-btn {
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36"><polygon points="6,6 26,18 16,20 20,30 14,30 10,22 6,26" fill="%23000000" stroke="%23ffffff" stroke-width="2.5" stroke-linejoin="round"/></svg>') 6 6, auto;
+        }
+        body {
+            background: #070b17;
+            font-family: "DM Sans", system-ui, sans-serif;
+            color: #e6edf5;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+        .bg-layer {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            background:
+                radial-gradient(circle at 30% 20%, rgba(37,99,235,0.08), transparent 55%),
+                radial-gradient(circle at 80% 80%, rgba(20,40,90,0.05), transparent 60%),
+                #070b17;
+        }
+        .key-container {
+            max-width: 480px;
+            width: 100%;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.04);
+            border-radius: 24px;
+            padding: 2.5rem 2rem;
+            backdrop-filter: blur(8px);
+            box-shadow: 0 8px 40px rgba(0,0,0,0.4);
+            text-align: center;
+        }
+        .key-container .logo {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-weight: 700;
+            font-size: 1.3rem;
+            color: #d6e4ff;
+            margin-bottom: 1.5rem;
+        }
+        .key-container .logo svg {
+            width: 36px;
+            height: 36px;
+            fill: none;
+            stroke: #60a5fa;
+            stroke-width: 6;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+        .key-container h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 0.3rem;
+        }
+        .key-container .sub {
+            color: #aec3ed;
+            font-size: 0.95rem;
+            margin-bottom: 2rem;
+            line-height: 1.5;
+        }
+        .key-input {
+            width: 100%;
+            padding: 0.9rem 1.2rem;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.06);
+            background: rgba(255,255,255,0.03);
+            color: white;
+            font-size: 1rem;
+            font-family: "DM Sans", system-ui, sans-serif;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            outline: none;
+            margin-bottom: 1rem;
+            text-align: center;
+            letter-spacing: 2px;
+        }
+        .key-input:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 20px rgba(37,99,235,0.15);
+        }
+        .key-input::placeholder {
+            color: #4a5a7a;
+            letter-spacing: 0.5px;
+        }
+        .redeem-btn {
+            width: 100%;
+            padding: 0.9rem;
+            border-radius: 12px;
+            border: none;
+            background: #2563eb;
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            font-family: "DM Sans", system-ui, sans-serif;
+            transition: background 0.2s, transform 0.15s, box-shadow 0.25s;
+            cursor: pointer;
+        }
+        .redeem-btn:hover {
+            background: #3b82f6;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(37,99,235,0.3);
+        }
+        .message {
+            margin-top: 1.2rem;
+            padding: 0.8rem 1rem;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            display: none;
+            font-weight: 500;
+        }
+        .message.success {
+            display: block;
+            background: rgba(34,197,94,0.12);
+            border: 1px solid rgba(34,197,94,0.2);
+            color: #86efac;
+        }
+        .message.error {
+            display: block;
+            background: rgba(239,68,68,0.12);
+            border: 1px solid rgba(239,68,68,0.2);
+            color: #fca5a5;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 1.5rem;
+            color: #60a5fa;
+            font-size: 0.85rem;
+            transition: color 0.2s;
+        }
+        .back-link:hover {
+            color: #93bbfc;
+            text-decoration: underline;
+        }
+        .demo-keys {
+            margin-top: 1.2rem;
+            font-size: 0.75rem;
+            color: #5a7a9a;
+            text-align: left;
+            border-top: 1px solid rgba(255,255,255,0.03);
+            padding-top: 1rem;
+        }
+        .demo-keys span {
+            display: inline-block;
+            background: rgba(255,255,255,0.03);
+            padding: 0.15rem 0.6rem;
+            border-radius: 4px;
+            font-family: monospace;
+            color: #7a9aba;
+            margin: 0.2rem 0.2rem 0 0;
+            border: 1px solid rgba(255,255,255,0.02);
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-layer"></div>
+    <div class="key-container">
+        <div class="logo">
+            <svg viewBox="0 0 100 100">
+                <path d="M 25,20 L 50,78 L 75,20" stroke="currentColor" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>Vorahub</span>
+        </div>
+        <h2>🔑 Key Redemption</h2>
+        <p class="sub">Enter your premium key to unlock full access.</p>
+
+        <input type="text" class="key-input" id="keyInput" placeholder="e.g. DEMO-1234" autofocus>
+        <button class="redeem-btn" id="redeemBtn">Redeem Key</button>
+
+        <div class="message" id="message"></div>
+
+        <a href="index.html" class="back-link">← Back to homepage</a>
+
+        <div class="demo-keys">
+            <strong>Demo keys:</strong><br>
+            <span>DEMO-1234</span>
+            <span>TEST-5678</span>
+            <span>FREE-9999</span>
+            <span>PREMIUM-2025</span>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            const keyInput = document.getElementById('keyInput');
+            const redeemBtn = document.getElementById('redeemBtn');
+            const message = document.getElementById('message');
+
+            // Predefined valid keys (you can add your own)
+            const validKeys = [
+                'DEMO-1234',
+                'TEST-5678',
+                'FREE-9999',
+                'PREMIUM-2025'
+            ];
+
+            function showMessage(text, type) {
+                message.textContent = text;
+                message.className = 'message ' + type;
+                message.style.display = 'block';
+            }
+
+            function redeemKey() {
+                const enteredKey = keyInput.value.trim().toUpperCase();
+                if (!enteredKey) {
+                    showMessage('Please enter a key.', 'error');
+                    return;
+                }
+
+                if (validKeys.includes(enteredKey)) {
+                    showMessage('✅ Key valid! Redirecting to Discord...', 'success');
+                    // Redirect to Discord after a short delay
+                    setTimeout(() => {
+                        window.location.href = 'https://discord.gg/4eDh93rd3';
+                    }, 1500);
+                } else {
+                    showMessage('❌ Invalid key. Please check and try again.', 'error');
+                }
+            }
+
+            // Enter key support
+            keyInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    redeemKey();
+                }
+            });
+
+            redeemBtn.addEventListener('click', redeemKey);
+
+            // Auto-focus on load
+            setTimeout(() => keyInput.focus(), 300);
+        })();
+    </script>
+</body>
+</html>
