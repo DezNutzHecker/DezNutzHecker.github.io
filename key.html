@@ -198,7 +198,6 @@
             const redeemBtn = document.getElementById('redeemBtn');
             const message = document.getElementById('message');
 
-            // Predefined valid keys (you can add your own)
             const validKeys = [
                 'DEMO-1234',
                 'TEST-5678',
@@ -221,7 +220,6 @@
 
                 if (validKeys.includes(enteredKey)) {
                     showMessage('✅ Key valid! Redirecting to Discord...', 'success');
-                    // Redirect to Discord after a short delay
                     setTimeout(() => {
                         window.location.href = 'https://discord.gg/4eDh93rd3';
                     }, 1500);
@@ -230,16 +228,11 @@
                 }
             }
 
-            // Enter key support
             keyInput.addEventListener('keydown', function(e) {
-                if (e.key === 'Enter') {
-                    redeemKey();
-                }
+                if (e.key === 'Enter') redeemKey();
             });
 
             redeemBtn.addEventListener('click', redeemKey);
-
-            // Auto-focus on load
             setTimeout(() => keyInput.focus(), 300);
         })();
     </script>
