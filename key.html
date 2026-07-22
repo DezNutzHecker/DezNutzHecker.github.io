@@ -130,14 +130,14 @@
             text-decoration: underline;
         }
 
-        /* Modal overlay */
+        /* Modal overlay – professional */
         .modal-overlay {
             display: none;
             position: fixed;
             inset: 0;
             z-index: 1000;
             background: rgba(0,0,0,0.75);
-            backdrop-filter: blur(8px);
+            backdrop-filter: blur(10px);
             align-items: center;
             justify-content: center;
             padding: 1.5rem;
@@ -146,54 +146,66 @@
             display: flex;
         }
         .modal {
-            max-width: 480px;
+            max-width: 560px;
             width: 100%;
             background: #0f1729;
-            border-radius: 24px;
-            padding: 2rem 1.8rem;
+            border-radius: 28px;
+            padding: 2.5rem 2rem;
             border: 1px solid rgba(255,255,255,0.06);
-            box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+            box-shadow: 0 24px 80px rgba(0,0,0,0.7);
             text-align: center;
         }
+        .modal .modal-icon {
+            font-size: 2.8rem;
+            margin-bottom: 0.2rem;
+        }
         .modal h3 {
-            font-size: 1.4rem;
+            font-size: 1.6rem;
+            font-weight: 700;
             color: white;
-            margin-bottom: 0.3rem;
+            margin-bottom: 0.2rem;
         }
         .modal .modal-sub {
             color: #aec3ed;
-            font-size: 0.9rem;
-            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+            margin-bottom: 1.8rem;
+            line-height: 1.5;
         }
+        /* Pricing grid */
         .modal .pricing-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 1rem;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.8rem;
         }
         .modal .pricing-grid .plan {
             background: rgba(255,255,255,0.02);
             border-radius: 16px;
             padding: 1.2rem 1rem;
             border: 1px solid rgba(255,255,255,0.04);
-            transition: border-color 0.2s;
+            transition: border-color 0.2s, background 0.2s, transform 0.15s;
+            text-align: center;
+            position: relative;
         }
         .modal .pricing-grid .plan:hover {
-            border-color: rgba(37,99,235,0.2);
+            border-color: rgba(37,99,235,0.25);
+            background: rgba(37,99,235,0.04);
+            transform: translateY(-2px);
         }
         .modal .pricing-grid .plan .name {
             font-weight: 600;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             color: #dce6ff;
-            margin-bottom: 0.2rem;
+            margin-bottom: 0.1rem;
         }
         .modal .pricing-grid .plan .price {
-            font-size: 1.3rem;
+            font-size: 1.6rem;
             font-weight: 700;
             color: #60a5fa;
+            line-height: 1.2;
         }
         .modal .pricing-grid .plan .price small {
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             font-weight: 400;
             color: #7b95d0;
         }
@@ -207,7 +219,7 @@
             padding: 0.1rem 0.6rem;
             border-radius: 40px;
             display: inline-block;
-            margin-top: 0.2rem;
+            margin-top: 0.15rem;
         }
         .modal .pricing-grid .plan.lifetime {
             border-color: rgba(37,99,235,0.15);
@@ -217,27 +229,58 @@
             background: #1d4ed8;
             box-shadow: 0 0 20px rgba(37,99,235,0.2);
         }
-        .modal .btn-secondary {
-            background: rgba(255,255,255,0.04);
-            color: #c2d4f8;
-            border: 1px solid rgba(255,255,255,0.06);
-            padding: 0.7rem 1.6rem;
-            border-radius: 60px;
+        .modal .pricing-grid .plan .buy-btn {
+            margin-top: 0.6rem;
+            padding: 0.4rem 1.2rem;
+            border-radius: 40px;
+            background: #2563eb;
+            color: white;
+            border: none;
             font-weight: 600;
-            font-size: 0.95rem;
-            transition: background 0.2s, border-color 0.2s;
+            font-size: 0.85rem;
             cursor: pointer;
+            transition: background 0.2s, transform 0.15s;
+            font-family: "DM Sans", system-ui, sans-serif;
         }
-        .modal .btn-secondary:hover {
-            background: rgba(37,99,235,0.12);
-            border-color: rgba(37,99,235,0.2);
+        .modal .pricing-grid .plan .buy-btn:hover {
+            background: #3b82f6;
+            transform: scale(1.02);
         }
-        .modal .modal-icon {
-            font-size: 2.8rem;
-            margin-bottom: 0.3rem;
+        .modal .pricing-grid .plan .buy-btn:active {
+            transform: scale(0.98);
         }
+
+        /* Payment methods */
+        .payment-methods {
+            margin: 1rem 0 1.5rem;
+            padding: 1rem;
+            background: rgba(255,255,255,0.02);
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.03);
+        }
+        .payment-methods .label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: #7a96d0;
+            margin-bottom: 0.5rem;
+        }
+        .payment-methods .methods {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            justify-content: center;
+        }
+        .payment-methods .methods span {
+            background: rgba(255,255,255,0.04);
+            padding: 0.2rem 0.8rem;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            color: #b2c7ef;
+            border: 1px solid rgba(255,255,255,0.04);
+        }
+
         .modal .stick-btn {
-            margin-top: 0.5rem;
             background: transparent;
             color: #7a96d0;
             border: none;
@@ -245,6 +288,8 @@
             cursor: pointer;
             transition: color 0.2s;
             padding: 0.5rem;
+            margin-top: 0.2rem;
+            font-family: "DM Sans", system-ui, sans-serif;
         }
         .modal .stick-btn:hover {
             color: #aec3ed;
@@ -332,27 +377,49 @@
     <div class="modal-overlay" id="premiumModal">
         <div class="modal">
             <div class="modal-icon">⭐</div>
-            <h3>Premium Pricing</h3>
-            <p class="modal-sub">Choose the plan that fits you best. Full access, lifetime updates, priority support.</p>
+            <h3>Choose Your Plan</h3>
+            <p class="modal-sub">Get full access with flexible payment options. All plans include lifetime updates and priority support.</p>
 
             <div class="pricing-grid">
-                <!-- Monthly -->
+                <!-- 15 days -->
                 <div class="plan">
-                    <div class="name">Monthly</div>
-                    <div class="price">Rp 49k <small>/mo</small></div>
-                    <div style="font-size:0.8rem; color:#7a96d0; margin-top:0.2rem;">Flexible, cancel anytime</div>
+                    <div class="name">15 Days</div>
+                    <div class="price">$1.00</div>
+                    <button class="buy-btn" data-plan="15days">Buy Now</button>
+                </div>
+                <!-- 30 days -->
+                <div class="plan">
+                    <div class="name">30 Days</div>
+                    <div class="price">$2.00</div>
+                    <button class="buy-btn" data-plan="30days">Buy Now</button>
+                </div>
+                <!-- 60 days -->
+                <div class="plan">
+                    <div class="name">60 Days</div>
+                    <div class="price">$4.00</div>
+                    <button class="buy-btn" data-plan="60days">Buy Now</button>
                 </div>
                 <!-- Lifetime -->
                 <div class="plan lifetime">
                     <div class="name">Lifetime</div>
-                    <div class="price">Rp 1.499 <small>one-time</small></div>
+                    <div class="price">$40.00</div>
                     <span class="badge">best value</span>
-                    <div style="font-size:0.8rem; color:#7a96d0; margin-top:0.2rem;">No recurring fees</div>
+                    <button class="buy-btn" data-plan="lifetime">Buy Now</button>
                 </div>
             </div>
 
-            <div style="margin-bottom: 0.8rem;">
-                <button class="btn-secondary" id="premiumBuyBtn" style="background:#2563eb; color:white; border:none; padding:0.7rem 2rem;">Buy Premium</button>
+            <!-- Payment methods -->
+            <div class="payment-methods">
+                <div class="label">We accept</div>
+                <div class="methods">
+                    <span>💳 GCash</span>
+                    <span>📱 PayMaya</span>
+                    <span>💲 PayPal</span>
+                    <span>₿ Crypto</span>
+                    <span>🏦 Bank Transfer</span>
+                    <span>📲 QR Ph</span>
+                </div>
+                <div style="font-size:0.7rem; color:#5a7a9a; margin-top:0.4rem;">More payment options coming soon.</div>
             </div>
 
             <button class="stick-btn" id="stickToFreeBtn">I'll stick to free with less features</button>
@@ -365,11 +432,11 @@
             const premiumBtn = document.getElementById('premiumKeyBtn');
             const modal = document.getElementById('premiumModal');
             const stickBtn = document.getElementById('stickToFreeBtn');
-            const buyBtn = document.getElementById('premiumBuyBtn');
+            const buyBtns = document.querySelectorAll('.buy-btn');
             const keyResult = document.getElementById('keyResult');
             const generatedKeySpan = document.getElementById('generatedKey');
 
-            // Generate a random free key (junkie style)
+            // Generate a random free key
             function generateFreeKey() {
                 const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
                 let key = '';
@@ -387,7 +454,6 @@
                 generatedKeySpan.textContent = newKey;
                 keyResult.classList.add('show');
 
-                // Auto-redirect to Discord after 3.5 seconds
                 setTimeout(function() {
                     window.location.href = 'https://discord.gg/4eDh93rd3';
                 }, 3500);
@@ -401,15 +467,19 @@
                 modal.classList.remove('active');
             });
 
-            buyBtn.addEventListener('click', function() {
-                // For testing – redirect to Discord or show a message
-                // For now, just show a message inside the modal
-                buyBtn.textContent = '✅ Processing... (test)';
-                setTimeout(function() {
-                    buyBtn.textContent = 'Buy Premium';
-                    alert('This is a test. Payment integration coming soon!');
-                    modal.classList.remove('active');
-                }, 1500);
+            // Handle buy buttons (professional placeholder)
+            buyBtns.forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const plan = this.dataset.plan;
+                    const price = this.closest('.plan').querySelector('.price').textContent.trim();
+                    alert(`You selected the "${this.closest('.plan').querySelector('.name').textContent}" plan for ${price}.\n\nThis is a demo. Payment integration coming soon.\n\nSelected plan: ${plan}`);
+                    // In production, redirect to payment page or show a payment modal.
+                    // For now, we just close the modal after a second.
+                    setTimeout(() => {
+                        modal.classList.remove('active');
+                    }, 2000);
+                });
             });
 
             // Close modal on background click
