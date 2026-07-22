@@ -3,443 +3,660 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vorahub · Key System</title>
+    <title>Vorahub · Premium Access</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body, a, button, .btn, .key-btn {
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body,
+        a,
+        button {
             cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36"><polygon points="6,6 26,18 16,20 20,30 14,30 10,22 6,26" fill="%23000000" stroke="%23ffffff" stroke-width="2.5" stroke-linejoin="round"/></svg>') 6 6, auto;
         }
+
         body {
             background: #070b17;
-            font-family: "DM Sans", system-ui, sans-serif;
+            font-family: "DM Sans", system-ui, -apple-system, sans-serif;
             color: #e6edf5;
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 2rem;
+            -webkit-font-smoothing: antialiased;
         }
+
         .bg-layer {
             position: fixed;
             inset: 0;
             z-index: -1;
             background:
-                radial-gradient(circle at 30% 20%, rgba(37,99,235,0.08), transparent 55%),
-                radial-gradient(circle at 80% 80%, rgba(20,40,90,0.05), transparent 60%),
+                radial-gradient(circle at 30% 20%, rgba(37, 99, 235, 0.06), transparent 55%),
+                radial-gradient(circle at 80% 80%, rgba(20, 40, 90, 0.04), transparent 60%),
                 #070b17;
         }
-        .key-container {
-            max-width: 520px;
+
+        .container {
+            max-width: 600px;
             width: 100%;
-            background: rgba(255,255,255,0.02);
-            border: 1px solid rgba(255,255,255,0.04);
-            border-radius: 24px;
-            padding: 2.5rem 2rem;
-            backdrop-filter: blur(8px);
-            box-shadow: 0 8px 40px rgba(0,0,0,0.4);
-            text-align: center;
+            background: rgba(255, 255, 255, 0.015);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 32px;
+            padding: 2.5rem 2rem 2rem;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
         }
-        .key-container .logo {
-            display: inline-flex;
+
+        /* Header */
+        .brand {
+            display: flex;
             align-items: center;
             gap: 0.6rem;
-            font-weight: 700;
-            font-size: 1.3rem;
-            color: #d6e4ff;
             margin-bottom: 1.5rem;
+            justify-content: center;
         }
-        .key-container .logo svg {
-            width: 36px;
-            height: 36px;
+        .brand svg {
+            width: 32px;
+            height: 32px;
             fill: none;
             stroke: #60a5fa;
             stroke-width: 6;
             stroke-linecap: round;
             stroke-linejoin: round;
         }
-        .key-container h2 {
+        .brand span {
+            font-weight: 700;
+            font-size: 1.15rem;
+            letter-spacing: -0.02em;
+            color: #d6e4ff;
+        }
+
+        .page-title {
+            text-align: center;
+            margin-bottom: 0.2rem;
+        }
+        .page-title h2 {
             font-size: 1.6rem;
             font-weight: 700;
-            color: white;
-            margin-bottom: 0.3rem;
+            color: #ffffff;
+            letter-spacing: -0.02em;
         }
-        .key-container .sub {
-            color: #aec3ed;
+        .page-title p {
+            color: #8aa4d6;
             font-size: 0.95rem;
-            margin-bottom: 2rem;
-            line-height: 1.5;
+            margin-top: 0.2rem;
+            line-height: 1.6;
         }
-        .key-options {
+
+        .divider {
+            width: 40px;
+            height: 2px;
+            background: #2563eb;
+            margin: 0.8rem auto 1.8rem;
+            border-radius: 2px;
+            opacity: 0.6;
+        }
+
+        /* Key option buttons */
+        .option-group {
             display: flex;
             flex-direction: column;
-            gap: 1rem;
+            gap: 0.8rem;
             margin-bottom: 1.5rem;
         }
-        .key-btn {
-            padding: 1rem;
+        .option-btn {
+            padding: 1rem 1.2rem;
             border-radius: 14px;
-            border: 1px solid rgba(255,255,255,0.06);
-            background: rgba(255,255,255,0.02);
-            color: white;
-            font-size: 1rem;
-            font-weight: 600;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.015);
+            color: #dce6ff;
+            font-size: 0.95rem;
+            font-weight: 500;
             font-family: "DM Sans", system-ui, sans-serif;
-            transition: background 0.2s, transform 0.15s, box-shadow 0.25s, border-color 0.2s;
+            transition: background 0.25s, border-color 0.25s, transform 0.15s, box-shadow 0.3s;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 0.5rem;
+            gap: 0.6rem;
+            text-align: left;
+            width: 100%;
         }
-        .key-btn:hover {
-            background: rgba(37,99,235,0.08);
-            border-color: rgba(37,99,235,0.2);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+        .option-btn .label {
+            font-weight: 600;
+            color: #ffffff;
         }
-        .key-btn .icon {
-            font-size: 1.2rem;
+        .option-btn .desc {
+            font-size: 0.8rem;
+            color: #7a96d0;
+            font-weight: 400;
+            margin-left: auto;
         }
-        .key-btn.free {
-            border-color: rgba(34,197,94,0.2);
+        .option-btn:hover {
+            background: rgba(37, 99, 235, 0.06);
+            border-color: rgba(37, 99, 235, 0.15);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
         }
-        .key-btn.free:hover {
-            background: rgba(34,197,94,0.08);
-            border-color: rgba(34,197,94,0.3);
+        .option-btn.free {
+            border-color: rgba(34, 197, 94, 0.12);
         }
-        .key-btn.premium {
-            border-color: rgba(250,204,21,0.2);
+        .option-btn.free:hover {
+            background: rgba(34, 197, 94, 0.06);
+            border-color: rgba(34, 197, 94, 0.2);
         }
-        .key-btn.premium:hover {
-            background: rgba(250,204,21,0.08);
-            border-color: rgba(250,204,21,0.3);
+        .option-btn .icon {
+            font-size: 1.1rem;
+            opacity: 0.6;
+            flex-shrink: 0;
+        }
+
+        /* Free key result */
+        .key-result {
+            margin-top: 1.2rem;
+            padding: 1rem 1.2rem;
+            border-radius: 12px;
+            background: rgba(34, 197, 94, 0.04);
+            border: 1px solid rgba(34, 197, 94, 0.1);
+            display: none;
+            animation: fadeUp 0.4s ease;
+            text-align: center;
+        }
+        .key-result.show {
+            display: block;
+        }
+        .key-result .key-label {
+            font-weight: 500;
+            color: #86efac;
+            font-size: 0.85rem;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+        .key-result .generated-key {
+            font-family: "DM Sans", monospace;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #86efac;
+            letter-spacing: 3px;
+            background: rgba(0, 0, 0, 0.25);
+            padding: 0.4rem 1rem;
+            border-radius: 8px;
+            display: inline-block;
+            margin: 0.4rem 0;
+        }
+        .key-result .note {
+            font-size: 0.8rem;
+            color: #7a96d0;
+            margin-top: 0.2rem;
         }
 
         .back-link {
             display: inline-block;
-            margin-top: 0.5rem;
-            color: #60a5fa;
+            margin-top: 1.2rem;
+            color: #5a7a9a;
             font-size: 0.85rem;
             transition: color 0.2s;
+            text-decoration: none;
+            font-weight: 500;
         }
         .back-link:hover {
-            color: #93bbfc;
+            color: #60a5fa;
             text-decoration: underline;
         }
 
-        /* Modal overlay – professional */
+        /* ── MODAL (Premium Pricing) ── */
         .modal-overlay {
             display: none;
             position: fixed;
             inset: 0;
             z-index: 1000;
-            background: rgba(0,0,0,0.75);
-            backdrop-filter: blur(10px);
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(12px);
             align-items: center;
             justify-content: center;
             padding: 1.5rem;
+            animation: fadeIn 0.3s ease;
         }
         .modal-overlay.active {
             display: flex;
         }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.98);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
         .modal {
-            max-width: 560px;
+            max-width: 620px;
             width: 100%;
-            background: #0f1729;
+            background: #0d1424;
             border-radius: 28px;
-            padding: 2.5rem 2rem;
-            border: 1px solid rgba(255,255,255,0.06);
-            box-shadow: 0 24px 80px rgba(0,0,0,0.7);
+            padding: 2.5rem 2.2rem 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            box-shadow: 0 32px 80px rgba(0, 0, 0, 0.7);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        .modal::-webkit-scrollbar {
+            width: 4px;
+        }
+        .modal::-webkit-scrollbar-thumb {
+            background: #2563eb;
+            border-radius: 4px;
+        }
+        .modal::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .modal-header {
             text-align: center;
-        }
-        .modal .modal-icon {
-            font-size: 2.8rem;
-            margin-bottom: 0.2rem;
-        }
-        .modal h3 {
-            font-size: 1.6rem;
-            font-weight: 700;
-            color: white;
-            margin-bottom: 0.2rem;
-        }
-        .modal .modal-sub {
-            color: #aec3ed;
-            font-size: 0.95rem;
             margin-bottom: 1.8rem;
+        }
+        .modal-header .badge {
+            display: inline-block;
+            font-size: 0.6rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: #60a5fa;
+            background: rgba(37, 99, 235, 0.12);
+            padding: 0.2rem 0.8rem;
+            border-radius: 40px;
+            margin-bottom: 0.4rem;
+        }
+        .modal-header h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: -0.02em;
+        }
+        .modal-header p {
+            color: #8aa4d6;
+            font-size: 0.9rem;
+            margin-top: 0.2rem;
             line-height: 1.5;
         }
+
         /* Pricing grid */
-        .modal .pricing-grid {
+        .pricing-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 1rem;
+            gap: 0.8rem;
             margin-bottom: 1.8rem;
         }
-        .modal .pricing-grid .plan {
-            background: rgba(255,255,255,0.02);
+        .plan {
+            background: rgba(255, 255, 255, 0.015);
             border-radius: 16px;
-            padding: 1.2rem 1rem;
-            border: 1px solid rgba(255,255,255,0.04);
+            padding: 1.2rem 0.8rem 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.04);
             transition: border-color 0.2s, background 0.2s, transform 0.15s;
             text-align: center;
             position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
-        .modal .pricing-grid .plan:hover {
-            border-color: rgba(37,99,235,0.25);
-            background: rgba(37,99,235,0.04);
+        .plan:hover {
+            border-color: rgba(37, 99, 235, 0.2);
+            background: rgba(37, 99, 235, 0.03);
             transform: translateY(-2px);
         }
-        .modal .pricing-grid .plan .name {
+        .plan .plan-name {
             font-weight: 600;
-            font-size: 0.95rem;
+            font-size: 0.85rem;
             color: #dce6ff;
-            margin-bottom: 0.1rem;
+            letter-spacing: 0.02em;
         }
-        .modal .pricing-grid .plan .price {
-            font-size: 1.6rem;
+        .plan .plan-price {
+            font-size: 1.5rem;
             font-weight: 700;
             color: #60a5fa;
             line-height: 1.2;
+            margin: 0.1rem 0 0.2rem;
         }
-        .modal .pricing-grid .plan .price small {
-            font-size: 0.8rem;
+        .plan .plan-price small {
+            font-size: 0.75rem;
             font-weight: 400;
             color: #7b95d0;
         }
-        .modal .pricing-grid .plan .badge {
-            font-size: 0.55rem;
+        .plan .plan-badge {
+            font-size: 0.5rem;
             font-weight: 700;
-            letter-spacing: 0.04em;
+            letter-spacing: 0.06em;
             text-transform: uppercase;
             background: #2563eb;
-            color: white;
-            padding: 0.1rem 0.6rem;
+            color: #ffffff;
+            padding: 0.1rem 0.7rem;
             border-radius: 40px;
             display: inline-block;
-            margin-top: 0.15rem;
+            margin-bottom: 0.3rem;
         }
-        .modal .pricing-grid .plan.lifetime {
-            border-color: rgba(37,99,235,0.15);
-            background: rgba(37,99,235,0.04);
+        .plan.lifetime {
+            border-color: rgba(37, 99, 235, 0.12);
+            background: rgba(37, 99, 235, 0.04);
         }
-        .modal .pricing-grid .plan.lifetime .badge {
+        .plan.lifetime .plan-badge {
             background: #1d4ed8;
-            box-shadow: 0 0 20px rgba(37,99,235,0.2);
+            box-shadow: 0 0 20px rgba(37, 99, 235, 0.15);
         }
-        .modal .pricing-grid .plan .buy-btn {
-            margin-top: 0.6rem;
-            padding: 0.4rem 1.2rem;
+        .plan .buy-btn {
+            margin-top: 0.5rem;
+            padding: 0.35rem 1.2rem;
             border-radius: 40px;
             background: #2563eb;
-            color: white;
+            color: #ffffff;
             border: none;
             font-weight: 600;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             cursor: pointer;
             transition: background 0.2s, transform 0.15s;
             font-family: "DM Sans", system-ui, sans-serif;
+            letter-spacing: 0.02em;
         }
-        .modal .pricing-grid .plan .buy-btn:hover {
+        .plan .buy-btn:hover {
             background: #3b82f6;
-            transform: scale(1.02);
+            transform: scale(1.03);
         }
-        .modal .pricing-grid .plan .buy-btn:active {
-            transform: scale(0.98);
+        .plan .buy-btn:active {
+            transform: scale(0.97);
         }
 
-        /* Payment methods – updated with popular options */
-        .payment-methods {
-            margin: 1rem 0 1.5rem;
-            padding: 1rem;
-            background: rgba(255,255,255,0.02);
-            border-radius: 12px;
-            border: 1px solid rgba(255,255,255,0.03);
+        /* Payment methods – clean grid */
+        .payment-section {
+            margin: 0.5rem 0 1.5rem;
+            padding: 1rem 0.8rem;
+            background: rgba(255, 255, 255, 0.01);
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.02);
         }
-        .payment-methods .label {
-            font-size: 0.7rem;
+        .payment-section .section-label {
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
             text-transform: uppercase;
-            letter-spacing: 0.06em;
-            color: #7a96d0;
-            margin-bottom: 0.6rem;
+            color: #6a8ad6;
+            text-align: center;
+            margin-bottom: 0.7rem;
         }
-        .payment-methods .methods {
+        .payment-methods {
             display: flex;
             flex-wrap: wrap;
             gap: 0.5rem;
             justify-content: center;
         }
-        .payment-methods .methods span {
-            background: rgba(255,255,255,0.04);
+        .payment-method {
+            background: rgba(255, 255, 255, 0.02);
             padding: 0.3rem 1rem;
             border-radius: 40px;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
+            font-weight: 500;
             color: #b2c7ef;
-            border: 1px solid rgba(255,255,255,0.04);
+            border: 1px solid rgba(255, 255, 255, 0.03);
             transition: background 0.2s, border-color 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            white-space: nowrap;
         }
-        .payment-methods .methods span:hover {
-            background: rgba(37,99,235,0.08);
-            border-color: rgba(37,99,235,0.15);
+        .payment-method .pm-icon {
+            font-size: 0.9rem;
+            opacity: 0.7;
         }
-        .payment-methods .methods .icon {
-            margin-right: 0.3rem;
+        .payment-method:hover {
+            background: rgba(37, 99, 235, 0.06);
+            border-color: rgba(37, 99, 235, 0.1);
         }
-        .payment-methods .note {
-            font-size: 0.7rem;
+        .payment-note {
+            text-align: center;
+            font-size: 0.65rem;
             color: #5a7a9a;
-            margin-top: 0.6rem;
-            border-top: 1px solid rgba(255,255,255,0.03);
-            padding-top: 0.6rem;
+            margin-top: 0.7rem;
+            padding-top: 0.7rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.02);
+        }
+        .payment-note a {
+            color: #60a5fa;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .payment-note a:hover {
+            text-decoration: underline;
         }
 
-        .modal .stick-btn {
+        /* Discord help section */
+        .help-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+            padding: 0.8rem 1rem;
+            background: rgba(37, 99, 235, 0.04);
+            border-radius: 12px;
+            border: 1px solid rgba(37, 99, 235, 0.06);
+            margin-bottom: 1.5rem;
+        }
+        .help-section .help-icon {
+            font-size: 1.1rem;
+            opacity: 0.6;
+        }
+        .help-section .help-text {
+            font-size: 0.85rem;
+            color: #b2c7ef;
+        }
+        .help-section .help-text strong {
+            color: #ffffff;
+            font-weight: 600;
+        }
+        .help-section .help-link {
+            color: #60a5fa;
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-decoration: none;
+            transition: color 0.2s;
+            margin-left: auto;
+            padding: 0.2rem 0.8rem;
+            border-radius: 40px;
+            background: rgba(37, 99, 235, 0.08);
+            border: 1px solid rgba(37, 99, 235, 0.1);
+        }
+        .help-section .help-link:hover {
+            color: #93bbfc;
+            background: rgba(37, 99, 235, 0.12);
+        }
+
+        .modal-footer {
+            text-align: center;
+            margin-top: 0.2rem;
+        }
+        .modal-footer .stick-btn {
             background: transparent;
             color: #7a96d0;
             border: none;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             cursor: pointer;
             transition: color 0.2s;
-            padding: 0.5rem;
-            margin-top: 0.2rem;
+            padding: 0.4rem 1rem;
             font-family: "DM Sans", system-ui, sans-serif;
         }
-        .modal .stick-btn:hover {
+        .modal-footer .stick-btn:hover {
             color: #aec3ed;
             text-decoration: underline;
         }
 
-        /* Free key result box */
-        .key-result {
-            margin-top: 1.5rem;
-            padding: 1rem;
-            border-radius: 12px;
-            background: rgba(34,197,94,0.06);
-            border: 1px solid rgba(34,197,94,0.15);
-            display: none;
-            animation: fadeUp 0.4s ease;
+        /* Responsive */
+        @media (max-width: 520px) {
+            .container {
+                padding: 1.8rem 1.2rem;
+            }
+            .modal {
+                padding: 1.8rem 1.2rem;
+            }
+            .pricing-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 0.6rem;
+            }
+            .plan {
+                padding: 0.8rem 0.4rem;
+            }
+            .plan .plan-price {
+                font-size: 1.2rem;
+            }
+            .payment-methods {
+                gap: 0.3rem;
+            }
+            .payment-method {
+                font-size: 0.65rem;
+                padding: 0.2rem 0.7rem;
+            }
+            .help-section {
+                flex-wrap: wrap;
+                gap: 0.4rem;
+                justify-content: center;
+                text-align: center;
+            }
+            .help-section .help-link {
+                margin-left: 0;
+            }
         }
-        .key-result.show {
-            display: block;
-        }
-        .key-result .generated-key {
-            font-family: monospace;
-            font-size: 1.2rem;
-            color: #86efac;
-            letter-spacing: 2px;
-            word-break: break-all;
-            background: rgba(0,0,0,0.2);
-            padding: 0.4rem 0.8rem;
-            border-radius: 8px;
-            display: inline-block;
-            margin: 0.5rem 0;
-        }
-        .key-result .note {
-            font-size: 0.85rem;
-            color: #7a96d0;
-            margin-top: 0.3rem;
-        }
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+        @media (max-width: 400px) {
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
-        @media (max-width: 480px) {
-            .modal .pricing-grid {
-                grid-template-columns: 1fr;
-                gap: 0.8rem;
+        /* Animation */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
             }
-            .key-container {
-                padding: 1.5rem 1.2rem;
+            to {
+                opacity: 1;
+                transform: translateY(0);
             }
         }
     </style>
 </head>
 <body>
+
     <div class="bg-layer"></div>
-    <div class="key-container">
-        <div class="logo">
+
+    <div class="container">
+        <!-- Brand -->
+        <div class="brand">
             <svg viewBox="0 0 100 100">
                 <path d="M 25,20 L 50,78 L 75,20" stroke="currentColor" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
             <span>Vorahub</span>
         </div>
-        <h2>🔑 Key System</h2>
-        <p class="sub">Choose your key type below.</p>
 
-        <div class="key-options">
-            <button class="key-btn free" id="freeKeyBtn">
-                <span class="icon">🎁</span> Get Free Key (Junkie)
+        <!-- Title -->
+        <div class="page-title">
+            <h2>Access Pass</h2>
+            <p>Choose your entry type below.</p>
+        </div>
+        <div class="divider"></div>
+
+        <!-- Options -->
+        <div class="option-group">
+            <button class="option-btn free" id="freeKeyBtn">
+                <span class="icon">◈</span>
+                <span class="label">Free Access</span>
+                <span class="desc">generated key</span>
             </button>
-            <button class="key-btn premium" id="premiumKeyBtn">
-                <span class="icon">⭐</span> Get Premium Key
+            <button class="option-btn" id="premiumKeyBtn">
+                <span class="icon">◆</span>
+                <span class="label">Premium Access</span>
+                <span class="desc">purchase plans</span>
             </button>
         </div>
 
-        <!-- Free key result (hidden initially) -->
+        <!-- Free key result -->
         <div class="key-result" id="keyResult">
-            <div style="font-weight:600; color: #86efac;">✅ Your free key is ready!</div>
+            <div class="key-label">Your Access Key</div>
             <div class="generated-key" id="generatedKey">XXXX-XXXX-XXXX</div>
-            <div class="note">Use this key in the main website to unlock features. Redirecting to Discord...</div>
+            <div class="note">Redirecting to Discord in a moment.</div>
         </div>
 
-        <a href="index.html" class="back-link">← Back to homepage</a>
+        <a href="index.html" class="back-link">← Return to homepage</a>
     </div>
 
-    <!-- Premium Pricing Modal -->
+    <!-- ─── PREMIUM MODAL ─── -->
     <div class="modal-overlay" id="premiumModal">
         <div class="modal">
-            <div class="modal-icon">⭐</div>
-            <h3>Choose Your Plan</h3>
-            <p class="modal-sub">Get full access with flexible payment options. All plans include lifetime updates and priority support.</p>
 
+            <div class="modal-header">
+                <div class="badge">Premium</div>
+                <h3>Select Your Plan</h3>
+                <p>Full access, priority support, and lifetime updates.</p>
+            </div>
+
+            <!-- Pricing -->
             <div class="pricing-grid">
-                <!-- 15 days -->
                 <div class="plan">
-                    <div class="name">15 Days</div>
-                    <div class="price">$1.00</div>
-                    <button class="buy-btn" data-plan="15days">Buy Now</button>
+                    <span class="plan-name">15 Days</span>
+                    <div class="plan-price">$1.00</div>
+                    <button class="buy-btn" data-plan="15days">Buy</button>
                 </div>
-                <!-- 30 days -->
                 <div class="plan">
-                    <div class="name">30 Days</div>
-                    <div class="price">$2.00</div>
-                    <button class="buy-btn" data-plan="30days">Buy Now</button>
+                    <span class="plan-name">30 Days</span>
+                    <div class="plan-price">$2.00</div>
+                    <button class="buy-btn" data-plan="30days">Buy</button>
                 </div>
-                <!-- 60 days -->
                 <div class="plan">
-                    <div class="name">60 Days</div>
-                    <div class="price">$4.00</div>
-                    <button class="buy-btn" data-plan="60days">Buy Now</button>
+                    <span class="plan-name">60 Days</span>
+                    <div class="plan-price">$4.00</div>
+                    <button class="buy-btn" data-plan="60days">Buy</button>
                 </div>
-                <!-- Lifetime -->
                 <div class="plan lifetime">
-                    <div class="name">Lifetime</div>
-                    <div class="price">$40.00</div>
-                    <span class="badge">best value</span>
-                    <button class="buy-btn" data-plan="lifetime">Buy Now</button>
+                    <span class="plan-badge">Best Value</span>
+                    <span class="plan-name">Lifetime</span>
+                    <div class="plan-price">$40.00</div>
+                    <button class="buy-btn" data-plan="lifetime">Buy</button>
                 </div>
             </div>
 
-            <!-- Payment methods – expanded with Crypto, PayPal & Indonesian favorites -->
-            <div class="payment-methods">
-                <div class="label">We accept</div>
-                <div class="methods">
-                    <span><span class="icon">₿</span> Crypto (BTC/ETH/USDT)</span>
-                    <span><span class="icon">💲</span> PayPal</span>
-                    <span><span class="icon">📱</span> OVO</span>
-                    <span><span class="icon">💚</span> DANA</span>
-                    <span><span class="icon">🟢</span> GoPay</span>
-                    <span><span class="icon">🛍️</span> ShopeePay</span>
-                    <span><span class="icon">🔗</span> LinkAja</span>
-                    <span><span class="icon">🏦</span> Bank Transfer</span>
+            <!-- Payment Methods -->
+            <div class="payment-section">
+                <div class="section-label">Payment Methods</div>
+                <div class="payment-methods">
+                    <span class="payment-method"><span class="pm-icon">₿</span> Crypto</span>
+                    <span class="payment-method"><span class="pm-icon">$</span> PayPal</span>
+                    <span class="payment-method"><span class="pm-icon">📱</span> OVO</span>
+                    <span class="payment-method"><span class="pm-icon">D</span> DANA</span>
+                    <span class="payment-method"><span class="pm-icon">G</span> GoPay</span>
+                    <span class="payment-method"><span class="pm-icon">S</span> ShopeePay</span>
+                    <span class="payment-method"><span class="pm-icon">L</span> LinkAja</span>
+                    <span class="payment-method"><span class="pm-icon">🏦</span> Bank Transfer</span>
                 </div>
-                <div class="note">More options available upon request. Contact us for assistance.</div>
+                <div class="payment-note">
+                    All transactions are secure. For assistance, <a href="https://discord.gg/4eDh93rd3" target="_blank">contact support</a>.
+                </div>
             </div>
 
-            <button class="stick-btn" id="stickToFreeBtn">I'll stick to free with less features</button>
+            <!-- Discord Help -->
+            <div class="help-section">
+                <span class="help-icon">⟡</span>
+                <span class="help-text">Need help? Join our <strong>Discord</strong> for live support.</span>
+                <a href="https://discord.gg/4eDh93rd3" target="_blank" class="help-link">Join Discord</a>
+            </div>
+
+            <!-- Footer -->
+            <div class="modal-footer">
+                <button class="stick-btn" id="stickToFreeBtn">I'll stick with free access</button>
+            </div>
+
         </div>
     </div>
 
@@ -453,7 +670,6 @@
             const keyResult = document.getElementById('keyResult');
             const generatedKeySpan = document.getElementById('generatedKey');
 
-            // Generate a random free key
             function generateFreeKey() {
                 const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
                 let key = '';
@@ -470,42 +686,51 @@
                 const newKey = generateFreeKey();
                 generatedKeySpan.textContent = newKey;
                 keyResult.classList.add('show');
-
-                setTimeout(function() {
+                setTimeout(() => {
                     window.location.href = 'https://discord.gg/4eDh93rd3';
                 }, 3500);
             });
 
             premiumBtn.addEventListener('click', function() {
                 modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
             });
 
-            stickBtn.addEventListener('click', function() {
+            function closeModal() {
                 modal.classList.remove('active');
-            });
+                document.body.style.overflow = '';
+            }
 
-            // Handle buy buttons (professional placeholder)
+            stickBtn.addEventListener('click', closeModal);
+
             buyBtns.forEach(btn => {
                 btn.addEventListener('click', function(e) {
                     e.stopPropagation();
                     const plan = this.dataset.plan;
-                    const price = this.closest('.plan').querySelector('.price').textContent.trim();
-                    alert(`You selected the "${this.closest('.plan').querySelector('.name').textContent}" plan for ${price}.\n\nThis is a demo. Payment integration coming soon.\n\nSelected plan: ${plan}`);
-                    // In production, redirect to payment page or show a payment modal.
-                    // For now, we just close the modal after a second.
-                    setTimeout(() => {
-                        modal.classList.remove('active');
-                    }, 2000);
+                    const name = this.closest('.plan').querySelector('.plan-name').textContent.trim();
+                    const price = this.closest('.plan').querySelector('.plan-price').textContent.trim();
+                    alert(
+                        'Plan selected: ' + name + '\nPrice: ' + price +
+                        '\n\nThis is a demo. Payment integration will be available soon.\n' +
+                        'Selected plan: ' + plan
+                    );
+                    // Close modal after a moment (in production, redirect to payment)
+                    setTimeout(closeModal, 2000);
                 });
             });
 
-            // Close modal on background click
             modal.addEventListener('click', function(e) {
-                if (e.target === modal) {
-                    modal.classList.remove('active');
+                if (e.target === modal) closeModal();
+            });
+
+            // Close with Escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && modal.classList.contains('active')) {
+                    closeModal();
                 }
             });
         })();
     </script>
+
 </body>
 </html>
