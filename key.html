@@ -250,7 +250,7 @@
             transform: scale(0.98);
         }
 
-        /* Payment methods */
+        /* Payment methods – updated with popular options */
         .payment-methods {
             margin: 1rem 0 1.5rem;
             padding: 1rem;
@@ -263,21 +263,36 @@
             text-transform: uppercase;
             letter-spacing: 0.06em;
             color: #7a96d0;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.6rem;
         }
         .payment-methods .methods {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.4rem;
+            gap: 0.5rem;
             justify-content: center;
         }
         .payment-methods .methods span {
             background: rgba(255,255,255,0.04);
-            padding: 0.2rem 0.8rem;
+            padding: 0.3rem 1rem;
             border-radius: 40px;
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             color: #b2c7ef;
             border: 1px solid rgba(255,255,255,0.04);
+            transition: background 0.2s, border-color 0.2s;
+        }
+        .payment-methods .methods span:hover {
+            background: rgba(37,99,235,0.08);
+            border-color: rgba(37,99,235,0.15);
+        }
+        .payment-methods .methods .icon {
+            margin-right: 0.3rem;
+        }
+        .payment-methods .note {
+            font-size: 0.7rem;
+            color: #5a7a9a;
+            margin-top: 0.6rem;
+            border-top: 1px solid rgba(255,255,255,0.03);
+            padding-top: 0.6rem;
         }
 
         .modal .stick-btn {
@@ -408,18 +423,20 @@
                 </div>
             </div>
 
-            <!-- Payment methods -->
+            <!-- Payment methods – expanded with Crypto, PayPal & Indonesian favorites -->
             <div class="payment-methods">
                 <div class="label">We accept</div>
                 <div class="methods">
-                    <span>💳 GCash</span>
-                    <span>📱 PayMaya</span>
-                    <span>💲 PayPal</span>
-                    <span>₿ Crypto</span>
-                    <span>🏦 Bank Transfer</span>
-                    <span>📲 QR Ph</span>
+                    <span><span class="icon">₿</span> Crypto (BTC/ETH/USDT)</span>
+                    <span><span class="icon">💲</span> PayPal</span>
+                    <span><span class="icon">📱</span> OVO</span>
+                    <span><span class="icon">💚</span> DANA</span>
+                    <span><span class="icon">🟢</span> GoPay</span>
+                    <span><span class="icon">🛍️</span> ShopeePay</span>
+                    <span><span class="icon">🔗</span> LinkAja</span>
+                    <span><span class="icon">🏦</span> Bank Transfer</span>
                 </div>
-                <div style="font-size:0.7rem; color:#5a7a9a; margin-top:0.4rem;">More payment options coming soon.</div>
+                <div class="note">More options available upon request. Contact us for assistance.</div>
             </div>
 
             <button class="stick-btn" id="stickToFreeBtn">I'll stick to free with less features</button>
