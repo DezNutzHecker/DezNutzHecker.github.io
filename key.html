@@ -136,8 +136,8 @@
             position: fixed;
             inset: 0;
             z-index: 1000;
-            background: rgba(0,0,0,0.7);
-            backdrop-filter: blur(6px);
+            background: rgba(0,0,0,0.75);
+            backdrop-filter: blur(8px);
             align-items: center;
             justify-content: center;
             padding: 1.5rem;
@@ -146,7 +146,7 @@
             display: flex;
         }
         .modal {
-            max-width: 420px;
+            max-width: 480px;
             width: 100%;
             background: #0f1729;
             border-radius: 24px;
@@ -158,13 +158,64 @@
         .modal h3 {
             font-size: 1.4rem;
             color: white;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.3rem;
         }
-        .modal p {
+        .modal .modal-sub {
             color: #aec3ed;
-            font-size: 0.95rem;
-            line-height: 1.6;
+            font-size: 0.9rem;
             margin-bottom: 1.5rem;
+        }
+        .modal .pricing-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .modal .pricing-grid .plan {
+            background: rgba(255,255,255,0.02);
+            border-radius: 16px;
+            padding: 1.2rem 1rem;
+            border: 1px solid rgba(255,255,255,0.04);
+            transition: border-color 0.2s;
+        }
+        .modal .pricing-grid .plan:hover {
+            border-color: rgba(37,99,235,0.2);
+        }
+        .modal .pricing-grid .plan .name {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #dce6ff;
+            margin-bottom: 0.2rem;
+        }
+        .modal .pricing-grid .plan .price {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #60a5fa;
+        }
+        .modal .pricing-grid .plan .price small {
+            font-size: 0.75rem;
+            font-weight: 400;
+            color: #7b95d0;
+        }
+        .modal .pricing-grid .plan .badge {
+            font-size: 0.55rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            background: #2563eb;
+            color: white;
+            padding: 0.1rem 0.6rem;
+            border-radius: 40px;
+            display: inline-block;
+            margin-top: 0.2rem;
+        }
+        .modal .pricing-grid .plan.lifetime {
+            border-color: rgba(37,99,235,0.15);
+            background: rgba(37,99,235,0.04);
+        }
+        .modal .pricing-grid .plan.lifetime .badge {
+            background: #1d4ed8;
+            box-shadow: 0 0 20px rgba(37,99,235,0.2);
         }
         .modal .btn-secondary {
             background: rgba(255,255,255,0.04);
@@ -182,8 +233,22 @@
             border-color: rgba(37,99,235,0.2);
         }
         .modal .modal-icon {
-            font-size: 3rem;
-            margin-bottom: 0.5rem;
+            font-size: 2.8rem;
+            margin-bottom: 0.3rem;
+        }
+        .modal .stick-btn {
+            margin-top: 0.5rem;
+            background: transparent;
+            color: #7a96d0;
+            border: none;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: color 0.2s;
+            padding: 0.5rem;
+        }
+        .modal .stick-btn:hover {
+            color: #aec3ed;
+            text-decoration: underline;
         }
 
         /* Free key result box */
@@ -220,6 +285,16 @@
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
+
+        @media (max-width: 480px) {
+            .modal .pricing-grid {
+                grid-template-columns: 1fr;
+                gap: 0.8rem;
+            }
+            .key-container {
+                padding: 1.5rem 1.2rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -253,13 +328,34 @@
         <a href="index.html" class="back-link">← Back to homepage</a>
     </div>
 
-    <!-- Premium modal -->
+    <!-- Premium Pricing Modal -->
     <div class="modal-overlay" id="premiumModal">
         <div class="modal">
             <div class="modal-icon">⭐</div>
-            <h3>Premium Key</h3>
-            <p>Premium access gives you full features, multi‑account, and priority support. <br><br> <strong style="color:#facc15;">Coming soon – stay tuned!</strong></p>
-            <button class="btn-secondary" id="stickToFreeBtn">I'll stick to free with less features</button>
+            <h3>Premium Pricing</h3>
+            <p class="modal-sub">Choose the plan that fits you best. Full access, lifetime updates, priority support.</p>
+
+            <div class="pricing-grid">
+                <!-- Monthly -->
+                <div class="plan">
+                    <div class="name">Monthly</div>
+                    <div class="price">Rp 49k <small>/mo</small></div>
+                    <div style="font-size:0.8rem; color:#7a96d0; margin-top:0.2rem;">Flexible, cancel anytime</div>
+                </div>
+                <!-- Lifetime -->
+                <div class="plan lifetime">
+                    <div class="name">Lifetime</div>
+                    <div class="price">Rp 1.499 <small>one-time</small></div>
+                    <span class="badge">best value</span>
+                    <div style="font-size:0.8rem; color:#7a96d0; margin-top:0.2rem;">No recurring fees</div>
+                </div>
+            </div>
+
+            <div style="margin-bottom: 0.8rem;">
+                <button class="btn-secondary" id="premiumBuyBtn" style="background:#2563eb; color:white; border:none; padding:0.7rem 2rem;">Buy Premium</button>
+            </div>
+
+            <button class="stick-btn" id="stickToFreeBtn">I'll stick to free with less features</button>
         </div>
     </div>
 
@@ -269,6 +365,7 @@
             const premiumBtn = document.getElementById('premiumKeyBtn');
             const modal = document.getElementById('premiumModal');
             const stickBtn = document.getElementById('stickToFreeBtn');
+            const buyBtn = document.getElementById('premiumBuyBtn');
             const keyResult = document.getElementById('keyResult');
             const generatedKeySpan = document.getElementById('generatedKey');
 
@@ -290,7 +387,7 @@
                 generatedKeySpan.textContent = newKey;
                 keyResult.classList.add('show');
 
-                // Auto-redirect to Discord after 3 seconds (simulate redemption)
+                // Auto-redirect to Discord after 3.5 seconds
                 setTimeout(function() {
                     window.location.href = 'https://discord.gg/4eDh93rd3';
                 }, 3500);
@@ -304,14 +401,23 @@
                 modal.classList.remove('active');
             });
 
+            buyBtn.addEventListener('click', function() {
+                // For testing – redirect to Discord or show a message
+                // For now, just show a message inside the modal
+                buyBtn.textContent = '✅ Processing... (test)';
+                setTimeout(function() {
+                    buyBtn.textContent = 'Buy Premium';
+                    alert('This is a test. Payment integration coming soon!');
+                    modal.classList.remove('active');
+                }, 1500);
+            });
+
             // Close modal on background click
             modal.addEventListener('click', function(e) {
                 if (e.target === modal) {
                     modal.classList.remove('active');
                 }
             });
-
-            // If user already has a key shown, we could also allow them to copy, but it's fine.
         })();
     </script>
 </body>
