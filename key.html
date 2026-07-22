@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body, a, button, .btn, .key-input, .redeem-btn {
+        body, a, button, .btn, .key-btn {
             cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36"><polygon points="6,6 26,18 16,20 20,30 14,30 10,22 6,26" fill="%23000000" stroke="%23ffffff" stroke-width="2.5" stroke-linejoin="round"/></svg>') 6 6, auto;
         }
         body {
@@ -32,7 +32,7 @@
                 #070b17;
         }
         .key-container {
-            max-width: 480px;
+            max-width: 520px;
             width: 100%;
             background: rgba(255,255,255,0.02);
             border: 1px solid rgba(255,255,255,0.04);
@@ -61,7 +61,7 @@
             stroke-linejoin: round;
         }
         .key-container h2 {
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             font-weight: 700;
             color: white;
             margin-bottom: 0.3rem;
@@ -72,70 +72,55 @@
             margin-bottom: 2rem;
             line-height: 1.5;
         }
-        .key-input {
-            width: 100%;
-            padding: 0.9rem 1.2rem;
-            border-radius: 12px;
+        .key-options {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .key-btn {
+            padding: 1rem;
+            border-radius: 14px;
             border: 1px solid rgba(255,255,255,0.06);
-            background: rgba(255,255,255,0.03);
-            color: white;
-            font-size: 1rem;
-            font-family: "DM Sans", system-ui, sans-serif;
-            transition: border-color 0.2s, box-shadow 0.2s;
-            outline: none;
-            margin-bottom: 1rem;
-            text-align: center;
-            letter-spacing: 2px;
-        }
-        .key-input:focus {
-            border-color: #3b82f6;
-            box-shadow: 0 0 20px rgba(37,99,235,0.15);
-        }
-        .key-input::placeholder {
-            color: #4a5a7a;
-            letter-spacing: 0.5px;
-        }
-        .redeem-btn {
-            width: 100%;
-            padding: 0.9rem;
-            border-radius: 12px;
-            border: none;
-            background: #2563eb;
+            background: rgba(255,255,255,0.02);
             color: white;
             font-size: 1rem;
             font-weight: 600;
             font-family: "DM Sans", system-ui, sans-serif;
-            transition: background 0.2s, transform 0.15s, box-shadow 0.25s;
+            transition: background 0.2s, transform 0.15s, box-shadow 0.25s, border-color 0.2s;
             cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
         }
-        .redeem-btn:hover {
-            background: #3b82f6;
+        .key-btn:hover {
+            background: rgba(37,99,235,0.08);
+            border-color: rgba(37,99,235,0.2);
             transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(37,99,235,0.3);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
         }
-        .message {
-            margin-top: 1.2rem;
-            padding: 0.8rem 1rem;
-            border-radius: 10px;
-            font-size: 0.9rem;
-            display: none;
-            font-weight: 500;
+        .key-btn .icon {
+            font-size: 1.2rem;
         }
-        .message.success {
-            display: block;
-            background: rgba(34,197,94,0.12);
-            border: 1px solid rgba(34,197,94,0.2);
-            color: #86efac;
+        .key-btn.free {
+            border-color: rgba(34,197,94,0.2);
         }
-        .message.error {
-            display: block;
-            background: rgba(239,68,68,0.12);
-            border: 1px solid rgba(239,68,68,0.2);
-            color: #fca5a5;
+        .key-btn.free:hover {
+            background: rgba(34,197,94,0.08);
+            border-color: rgba(34,197,94,0.3);
         }
+        .key-btn.premium {
+            border-color: rgba(250,204,21,0.2);
+        }
+        .key-btn.premium:hover {
+            background: rgba(250,204,21,0.08);
+            border-color: rgba(250,204,21,0.3);
+        }
+
         .back-link {
             display: inline-block;
-            margin-top: 1.5rem;
+            margin-top: 0.5rem;
             color: #60a5fa;
             font-size: 0.85rem;
             transition: color 0.2s;
@@ -144,23 +129,96 @@
             color: #93bbfc;
             text-decoration: underline;
         }
-        .demo-keys {
-            margin-top: 1.2rem;
-            font-size: 0.75rem;
-            color: #5a7a9a;
-            text-align: left;
-            border-top: 1px solid rgba(255,255,255,0.03);
-            padding-top: 1rem;
+
+        /* Modal overlay */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 1000;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(6px);
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
         }
-        .demo-keys span {
-            display: inline-block;
-            background: rgba(255,255,255,0.03);
-            padding: 0.15rem 0.6rem;
-            border-radius: 4px;
+        .modal-overlay.active {
+            display: flex;
+        }
+        .modal {
+            max-width: 420px;
+            width: 100%;
+            background: #0f1729;
+            border-radius: 24px;
+            padding: 2rem 1.8rem;
+            border: 1px solid rgba(255,255,255,0.06);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+            text-align: center;
+        }
+        .modal h3 {
+            font-size: 1.4rem;
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+        .modal p {
+            color: #aec3ed;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+        .modal .btn-secondary {
+            background: rgba(255,255,255,0.04);
+            color: #c2d4f8;
+            border: 1px solid rgba(255,255,255,0.06);
+            padding: 0.7rem 1.6rem;
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: background 0.2s, border-color 0.2s;
+            cursor: pointer;
+        }
+        .modal .btn-secondary:hover {
+            background: rgba(37,99,235,0.12);
+            border-color: rgba(37,99,235,0.2);
+        }
+        .modal .modal-icon {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Free key result box */
+        .key-result {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            border-radius: 12px;
+            background: rgba(34,197,94,0.06);
+            border: 1px solid rgba(34,197,94,0.15);
+            display: none;
+            animation: fadeUp 0.4s ease;
+        }
+        .key-result.show {
+            display: block;
+        }
+        .key-result .generated-key {
             font-family: monospace;
-            color: #7a9aba;
-            margin: 0.2rem 0.2rem 0 0;
-            border: 1px solid rgba(255,255,255,0.02);
+            font-size: 1.2rem;
+            color: #86efac;
+            letter-spacing: 2px;
+            word-break: break-all;
+            background: rgba(0,0,0,0.2);
+            padding: 0.4rem 0.8rem;
+            border-radius: 8px;
+            display: inline-block;
+            margin: 0.5rem 0;
+        }
+        .key-result .note {
+            font-size: 0.85rem;
+            color: #7a96d0;
+            margin-top: 0.3rem;
+        }
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
@@ -173,67 +231,87 @@
             </svg>
             <span>Vorahub</span>
         </div>
-        <h2>🔑 Key Redemption</h2>
-        <p class="sub">Enter your premium key to unlock full access.</p>
+        <h2>🔑 Key System</h2>
+        <p class="sub">Choose your key type below.</p>
 
-        <input type="text" class="key-input" id="keyInput" placeholder="e.g. DEMO-1234" autofocus>
-        <button class="redeem-btn" id="redeemBtn">Redeem Key</button>
+        <div class="key-options">
+            <button class="key-btn free" id="freeKeyBtn">
+                <span class="icon">🎁</span> Get Free Key (Junkie)
+            </button>
+            <button class="key-btn premium" id="premiumKeyBtn">
+                <span class="icon">⭐</span> Get Premium Key
+            </button>
+        </div>
 
-        <div class="message" id="message"></div>
+        <!-- Free key result (hidden initially) -->
+        <div class="key-result" id="keyResult">
+            <div style="font-weight:600; color: #86efac;">✅ Your free key is ready!</div>
+            <div class="generated-key" id="generatedKey">XXXX-XXXX-XXXX</div>
+            <div class="note">Use this key in the main website to unlock features. Redirecting to Discord...</div>
+        </div>
 
         <a href="index.html" class="back-link">← Back to homepage</a>
+    </div>
 
-        <div class="demo-keys">
-            <strong>Demo keys:</strong><br>
-            <span>DEMO-1234</span>
-            <span>TEST-5678</span>
-            <span>FREE-9999</span>
-            <span>PREMIUM-2025</span>
+    <!-- Premium modal -->
+    <div class="modal-overlay" id="premiumModal">
+        <div class="modal">
+            <div class="modal-icon">⭐</div>
+            <h3>Premium Key</h3>
+            <p>Premium access gives you full features, multi‑account, and priority support. <br><br> <strong style="color:#facc15;">Coming soon – stay tuned!</strong></p>
+            <button class="btn-secondary" id="stickToFreeBtn">I'll stick to free with less features</button>
         </div>
     </div>
 
     <script>
         (function() {
-            const keyInput = document.getElementById('keyInput');
-            const redeemBtn = document.getElementById('redeemBtn');
-            const message = document.getElementById('message');
+            const freeBtn = document.getElementById('freeKeyBtn');
+            const premiumBtn = document.getElementById('premiumKeyBtn');
+            const modal = document.getElementById('premiumModal');
+            const stickBtn = document.getElementById('stickToFreeBtn');
+            const keyResult = document.getElementById('keyResult');
+            const generatedKeySpan = document.getElementById('generatedKey');
 
-            const validKeys = [
-                'DEMO-1234',
-                'TEST-5678',
-                'FREE-9999',
-                'PREMIUM-2025'
-            ];
-
-            function showMessage(text, type) {
-                message.textContent = text;
-                message.className = 'message ' + type;
-                message.style.display = 'block';
+            // Generate a random free key (junkie style)
+            function generateFreeKey() {
+                const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+                let key = '';
+                for (let i = 0; i < 4; i++) {
+                    if (i > 0) key += '-';
+                    for (let j = 0; j < 4; j++) {
+                        key += chars.charAt(Math.floor(Math.random() * chars.length));
+                    }
+                }
+                return key;
             }
 
-            function redeemKey() {
-                const enteredKey = keyInput.value.trim().toUpperCase();
-                if (!enteredKey) {
-                    showMessage('Please enter a key.', 'error');
-                    return;
-                }
+            freeBtn.addEventListener('click', function() {
+                const newKey = generateFreeKey();
+                generatedKeySpan.textContent = newKey;
+                keyResult.classList.add('show');
 
-                if (validKeys.includes(enteredKey)) {
-                    showMessage('✅ Key valid! Redirecting to Discord...', 'success');
-                    setTimeout(() => {
-                        window.location.href = 'https://discord.gg/4eDh93rd3';
-                    }, 1500);
-                } else {
-                    showMessage('❌ Invalid key. Please check and try again.', 'error');
-                }
-            }
-
-            keyInput.addEventListener('keydown', function(e) {
-                if (e.key === 'Enter') redeemKey();
+                // Auto-redirect to Discord after 3 seconds (simulate redemption)
+                setTimeout(function() {
+                    window.location.href = 'https://discord.gg/4eDh93rd3';
+                }, 3500);
             });
 
-            redeemBtn.addEventListener('click', redeemKey);
-            setTimeout(() => keyInput.focus(), 300);
+            premiumBtn.addEventListener('click', function() {
+                modal.classList.add('active');
+            });
+
+            stickBtn.addEventListener('click', function() {
+                modal.classList.remove('active');
+            });
+
+            // Close modal on background click
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    modal.classList.remove('active');
+                }
+            });
+
+            // If user already has a key shown, we could also allow them to copy, but it's fine.
         })();
     </script>
 </body>
